@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import Switcher from './swicher/swicher';
 
 const api = "https://to-dos-api.softclub.tj/api/to-dos";
 
@@ -128,7 +129,8 @@ const App = () => {
   }, []);
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4 dark:bg-[black]">
+      <Switcher/>
       <div className="flex flex-col gap-4 max-w-md mx-auto">
         <input className="border p-2 rounded" type="text" value={name} onChange={(el) => setName(el.target.value)} placeholder="Name" />
         <input className="border p-2 rounded" type="text" value={desc} onChange={(el) => setDesc(el.target.value)} placeholder="Description" />
@@ -182,15 +184,19 @@ const App = () => {
         </div>
       )}
       {dialog2 && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white p-4 rounded">
+        <div className=" w-[30%] dark:bg-[black] dark:shadow-[white] absolute h-[100vh] fixed right-0 bg-[white] shadow-md bottom-0">
+          <div className="bg-white p-4  rounded dark:bg-[black]">
+            <div className='w-[100px] flex items-center flex-wrap'>
             {
               date.images?.map((el)=>{
-                return <img key={el.id} src={"https://to-dos-api.softclub.tj/images/"+el.imageName} alt="" />
+                return <div key={el.id} className='w-[100%] flex '>
+                  <img className='w-[100%]'  src={"https://to-dos-api.softclub.tj/images/"+el.imageName} alt="" />
+                </div>
               })
             }
-            <h1 className='text-[red]'>{date.id}</h1>
-            <h1 className='text-[red]'>{date.name}</h1>
+            </div>
+            <h1 className='text-[red] text-[1.3rem] mt-[30px]'> ID : {date.id}</h1>
+            <h1 className='text-[red] text-[2rem]'>Name : {date.name}</h1>
             <button className='p-2 rounded bg-[red] text-white mt[10px]' onClick={()=>setDialog2(false)}>Close</button>
           </div>
         </div>
